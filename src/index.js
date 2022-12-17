@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import About from './Components/UI/About';
 import Home from './Components/UI/Home';
+import Contact from './Components/UI/Contact';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
@@ -15,6 +16,7 @@ root.render(
       <Route path='/' element={<App/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='/home' element={<Home/>}/>
+      <Route path='/contact' element={<Contact/>}/>
     </Routes>
   </Router>
 );

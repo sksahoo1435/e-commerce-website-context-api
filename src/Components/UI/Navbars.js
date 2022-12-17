@@ -14,7 +14,8 @@ const Navbars = (props) => {
                         paddingBottom: 3, color: "white"
                     }}>HOME</Link>
                     <Link to='/' className='store' style={{ paddingBottom: 3, color: "white", textDecoration: "none" }}>STORE</Link>
-                    <Link to='/about' className='about' style={{ paddingBottom: 3, color: "white", textDecoration: "none", paddingRight: "30%" }}>ABOUT</Link>
+                    <Link to='/about' className='about' style={{ paddingBottom: 3, color: "white", textDecoration: "none" }}>ABOUT</Link>
+                    <Link to='/contact' style={{ paddingBottom: 3, color: "white", textDecoration: "none" }}>Contact us</Link>
                     <Cart showCartCall={props.showCart} hideCartSee={(data)=>{props.hideCartSeeCart(data)}}/>
                 </Container>
             </Navbar>
