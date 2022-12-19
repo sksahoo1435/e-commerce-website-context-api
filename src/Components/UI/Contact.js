@@ -16,7 +16,7 @@ const Contact = (props) => {
             email:Email.current.value,
             number:Number.current.value
         }
-        console.log(data) 
+
         const response = await fetch("https://react-http-d7935-default-rtdb.firebaseio.com/ecommerce.json",{
             method:"POST",
             body: JSON.stringify(data),
@@ -26,6 +26,13 @@ const Contact = (props) => {
         });
         const issue= await response.json();
         console.log(issue);
+
+        const response2 = await fetch("https://react-http-d7935-default-rtdb.firebaseio.com/ecommerce.json",{
+            method:"GET",
+            
+        });
+        const iss= await response2.json();
+        console.log(iss);
     }
 
 

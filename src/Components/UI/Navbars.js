@@ -10,7 +10,7 @@ const Navbars = (props) => {
                 <Container>
 
                     <Link to='/home' className='home' style={{
-                        position: "relative", paddingLeft: "35%", textDecoration: "none",
+                        position: "relative", paddingLeft: "25%", textDecoration: "none",
                         paddingBottom: 3, color: "white"
                     }}>HOME</Link>
                     <Link to='/' className='store' style={{ paddingBottom: 3, color: "white", textDecoration: "none" }}>STORE</Link>

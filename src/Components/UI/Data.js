@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
 import Image1 from '../Images/Album 1.png';
 import Image2 from '../Images/Album 2.png';
@@ -7,6 +7,7 @@ import Image4 from '../Images/Album 4.png';
 import Image5 from '../Images/coffee2.jpg';
 import Image6 from '../Images/Shirt.png';
 import CartContext from "../Context/Cart-Context";
+import { Link } from "react-router-dom";
 
 const data = [
     { img: Image1, price: '12.99', header: "Album 1", id: 0 },
@@ -21,7 +22,20 @@ const data = [
 
 const Data = (props) => {
 
+    const [fullDetails, setToFullDetails] = useState([]);
+
+    console.log(fullDetails)
+
     const cartCtx = useContext(CartContext);
+
+    const fullDetailItem = (id) => {
+        const FullImage = data.filter((curEle) => {
+            return curEle.id === id;
+        })
+        setToFullDetails(FullImage)
+
+    }
+
 
     return (
         <>
@@ -45,7 +59,9 @@ const Data = (props) => {
                                             <center><h6>{item.header}</h6></center>
                                         </div>
                                         <div style={{ width: "100%" }}>
-                                            <img src={item.img} style={{ height: "100%", width: "100%" }} alt="imaages" />
+                                            <Link to="/details" state={{img:item.img,header:item.header,price:item.price}}>
+                                                <img src={item.img} style={{ height: "100%", width: "100%" }} alt="imaages" onClick={() => fullDetailItem(item.id)} />
+                                            </Link>
                                         </div>
                                         <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", alignItems: "center" }}>
                                             <p style={{ textAlign: "center" }}>{item.price}</p>

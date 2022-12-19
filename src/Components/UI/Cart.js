@@ -10,7 +10,7 @@ const Cart = (props) => {
 
     const cartCtx = useContext(CartContext);
 
-    console.log("the arrays are", cartCtx.cartData)
+    // console.log("the arrays are", cartCtx.cartData)
     const cartItem = cartCtx.cartData && cartCtx.cartData.length > 0
 
     const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
