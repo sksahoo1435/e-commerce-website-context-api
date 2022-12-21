@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Navbars from './Navbars';
 import { useLocation } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import classes from './details.module.css';
+import CartContext from '../Context/Cart-Context';
 
 function Details(props) {
 
     const location = useLocation()
 
     const { header, img,price } = location.state || {}
+
+    const logCtx= useContext(CartContext);
+
+    const logInDone=logCtx.isLoggedIn
+
+    console.log(logInDone)
 
 
     return (
