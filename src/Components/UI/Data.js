@@ -59,7 +59,7 @@ const Data = (props) => {
                                             <center><h6>{item.header}</h6></center>
                                         </div>
                                         <div style={{ width: "100%" }}>
-                                            <Link to="/details" state={{img:item.img,header:item.header,price:item.price}}>
+                                            <Link to={localStorage.getItem('token')!==null?"/details":'/login' } state={{img:item.img,header:item.header,price:item.price}}>
                                                 <img src={item.img} style={{ height: "100%", width: "100%" }} alt="imaages" onClick={() => fullDetailItem(item.id)} />
                                             </Link>
                                         </div>

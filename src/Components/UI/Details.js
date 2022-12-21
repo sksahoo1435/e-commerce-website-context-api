@@ -13,35 +13,34 @@ function Details(props) {
 
     const logCtx= useContext(CartContext);
 
-    const logInDone=logCtx.isLoggedIn
 
-    console.log(logInDone)
+    
 
 
     return (
         <>
             <Navbars />
             <div style={{ width: "100%", height: "100%" }}>
-                <div >
-                    <div className={classes.image} style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-evenly" }}>
+                <div  style={{ width: "40%", height: "100%" }}>
+                    <div className={classes.image} >
                         <img src={img} alt="img" />
                     </div>
 
-                    <div>
-                        <img src={img} alt="img" style={{ height: "5%", width: "5%", margin: "0.5%", transform: "rotate(270deg)", border: "bold", borderOutlineColor: "aqua" }} />
-                        <img src={img} alt="img" style={{ height: "5%", width: "5%", margin: "1%", transform: "rotate(90deg)" }} />
-                        <img src={img} alt="img" style={{ height: "5%", width: "5%", margin: "1%", transform: "rotate(180deg)" }} />
+                    <div style={{margin:"3%"}}>
+                        <img src={img} alt="img" style={{ height: "15%", width: "15%", margin: "0.5%", transform: "rotate(270deg)", border: "bold", borderOutlineColor: "aqua" }} />
+                        <img src={img} alt="img" style={{ height: "15%", width: "15%", margin: "1%", transform: "rotate(90deg)" }} />
+                        <img src={img} alt="img" style={{ height: "15%", width: "15%", margin: "1%", transform: "rotate(180deg)" }} />
                     </div>
                     <div style={{ marginBottom: 0 }}>
                         <Button style={{ margin: "1%" }}> ADD TO CART</Button>
                         <Button style={{ margin: "1%" }}>BUY NOW</Button>
                     </div>
                 </div>
-                <div style={{paddingLeft: "50%" }}>
-                    <div>
-                    <h2 style={{ color: "blue",position:"fixed",margin: -362,marginTop:-50 }}>{header} </h2>
+                <div style={{paddingLeft: "40%",width: "80%"}}>
+                    <div style={{margin: -195}}>
+                    <h2 style={{ color: "blue" }}>{header} </h2>
                     </div>
-                    <div style={{fontSize:25,marginLeft:-360,marginTop:-200}}>
+                    <div style={{fontSize:25}}>
                         <p style={{color:"yellowgreen"}}>We are provide you the best Price </p>
                         $ {price}
                     </div>                   

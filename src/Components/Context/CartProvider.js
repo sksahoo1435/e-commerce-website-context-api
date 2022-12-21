@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useState } from "react";
 import CartContext from "../Context/Cart-Context";
 import { useNavigate } from 'react-router-dom';
 
@@ -11,10 +11,10 @@ const CartProvider = (props) => {
   const [token, setToken] = useState(initialToken);
 
   const userIsLoggedIn = !!token;
+ 
 
   const loginHandler = (token) => {
     setToken(token);
-    localStorage.setItem('token', token);
   }
 
   const logoutHandler = () => {
@@ -70,7 +70,6 @@ const CartProvider = (props) => {
 
   };
 
-  // console.log(items)
   const cartContext = {
     cartData: items,
     totalAmount: items.reduce((ack, item) => item.quantity * Number(item.price) + ack, 0),

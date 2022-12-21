@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from 'react';
+import React, { useRef, useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import CartContext from '../Context/Cart-Context';
@@ -12,11 +12,11 @@ function LogIn() {
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
 
-    const [isLogin, setIsLogin] = useState(true);
+    // const [isLogin, setIsLogin] = useState(true);
 
-    
 
-    console.log(isLogin)
+
+    console.log("before login",logCtx.isLoggedIn)
 
 
     const submitHandler = (event) => {
@@ -26,8 +26,7 @@ function LogIn() {
         const enteredPassword = passwordInputRef.current.value;
         console.log(enteredEmail, enteredPassword)
 
-        setIsLogin(false);
-        if (isLogin) {
+        // if (isLogin) {
             fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD7zBQf0px6OU6KOmQsl6htUKcMzlm5EWk', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -40,28 +39,45 @@ function LogIn() {
                 }
             }).then(res => {
                 if (res.ok) {
-                    return res.json();
-                } else {
-                    return res.json().then(data => {
-                        let errorMessage = 'Login failed!';
-                        if (data && data.error && data.error.message) {
-                            errorMessage = data.error.message;
-                        }
+                    console.log('Login Successful')
+                    res.json().then((jwt) => {
 
-                        throw new Error(errorMessage);
-                    });
+                        logCtx.login(jwt.idToken)
+                        // console.log("after login",jwt)
+                        localStorage.setItem('token', jwt.idToken);
+                        // logCtx.isLoggedIn=true
+                        console.log("after login",logCtx.isLoggedIn)
+                        history('/');
+
+                    })
+
                 }
-            }).then(data => {
-                console.log(data.idToken)
-                logCtx.login(data.idToken);
-                history('/');
             })
-                .catch(err => { alert(err.message) });
-        }
+        
     }
-    const switchAuthModeHandler = () => {
-        setIsLogin((prevState) => !prevState);
-    };
+
+
+    //            else {
+    //             return res.json().then(data => {
+    //                 let errorMessage = 'Login failed!';
+    //                 if (data && data.error && data.error.message) {
+    //                     errorMessage = data.error.message;
+    //                 }
+
+    //                 throw new Error(errorMessage);
+    //             });
+    //         }
+    //     }).then(data => {
+    //         console.log(data.idToken)
+    //         logCtx.login(data.idToken);
+    //         history('/');
+    //     })
+    //         .catch(err => { alert(err.message) });
+    // }
+
+    // const switchAuthModeHandler = () => {
+    //     setIsLogin((prevState) => !prevState);
+    // };
 
 
     return (
@@ -70,7 +86,7 @@ function LogIn() {
                 marginLeft: "auto", marginRight: "auto", marginTop: "12rem", width: '95%', maxWidth: "25rem",
                 borderRadius: 6, backgroundColor: "#38015c", boxShadow: "0 1px 4px rgba(0, 0, 0, 0.2)",
                 padding: "1rem", textAlign: "center", color: "white"
-            }} onSubmit={switchAuthModeHandler}>
+            }} >
                 <p>Log In</p>
                 <form>
                     <div style={{ margin: "2rem" }}>
