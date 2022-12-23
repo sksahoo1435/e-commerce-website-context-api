@@ -51,7 +51,7 @@ const Cart = (props) => {
                             <div style={{ paddingLeft: 80 }}>
                                 <Card style={{ background: "aqua", borderRadius: 10, width: 20 }}>{item.quantity}</Card>
                             </div>
-                            <Button variant="danger" onClick={() => cartCtx.removeItem(item._id)}>REMOVE</Button>{' '}
+                            <Button variant="danger" onClick={() => cartCtx.removeItem(item._id,item)}>REMOVE</Button>{' '}
                             {/* <Button style={{paddingLeft:5}} onClick={() => cartCtx.addItem(item._id)}>+</Button> */}
                         </div>
                         
@@ -69,7 +69,7 @@ const Cart = (props) => {
                 </div>
 
                 <div style={{ bottom: 0, alignItems: "center" }}>
-                    <Button onClick={()=> cartCtx.clearCart()}>PURCHASE</Button>
+                    <Button onClick={()=> cartCtx.clearCart(cartCtx.cartData)}>PURCHASE</Button>
                 </div>
             </div>
         )

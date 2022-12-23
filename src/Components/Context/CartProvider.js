@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import CartContext from "../Context/Cart-Context";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const CartProvider = (props) => {
-
 
   const [items, setItems] = useState([])
 
@@ -15,11 +14,10 @@ const CartProvider = (props) => {
 
   const userIsLoggedIn = !!token;
 
-  const url = 'https://crudcrud.com/api/6948e789789648cbb9cd81dc1046b855/cart';
-  
+  const url = 'https://crudcrud.com/api/2dce1209ceda48af95c1868e4016ebdc/cart';
+
   const fetchHandler = async () => {
     const response = await axios.get(url)
-    console.log(response.data._id)
     setItems(response.data)
 
   }
@@ -45,7 +43,7 @@ const CartProvider = (props) => {
 
         console.log("this is the second value", items[index]._id)
         console.log(newArray)
-        const x =  Number(newArray[index].quantity) + Number(product.quantity)-1;
+        const x = Number(newArray[index].quantity) + Number(product.quantity) - 1;
         const objItem = {
           id: product.id,
           image: product.image,
@@ -53,14 +51,11 @@ const CartProvider = (props) => {
           price: product.price,
           quantity: x
         }
-        axios.put(`https://crudcrud.com/api/6948e789789648cbb9cd81dc1046b855/cart/${items[index]._id}`, objItem)
-          .then((res) => { console.log(res.data) 
+        axios.put(`https://crudcrud.com/api/2dce1209ceda48af95c1868e4016ebdc/cart/${items[index]._id}`, objItem)
+          .then((res) => {
+            console.log(res.data)
             fetchHandler();
-          } )
-
-
-        // }
-
+          })
       }
     })
     if (hasItems === false) {
@@ -75,17 +70,41 @@ const CartProvider = (props) => {
   };
 
 
-  const removeItemToCartHandler = async (id) => {
-      await axios.delete(`https://crudcrud.com/api/6948e789789648cbb9cd81dc1046b855/cart/${id}`)
+  const removeItemToCartHandler = async (id, item) => {
+    // console.log(item.quantity)
+    if (item.quantity > 1) {
+      const x=Number(item.quantity)-1
+      const objItem = {
+        id: item.id,
+        image: item.image,
+        header: item.header,
+        price: item.price,
+        quantity: x
+      }
+      axios.put(`https://crudcrud.com/api/2dce1209ceda48af95c1868e4016ebdc/cart/${id}`, objItem)
+        .then((res) => {
+          console.log(res.data)
+          fetchHandler();
+        })
+
+    } else {
+      await axios.delete(`https://crudcrud.com/api/2dce1209ceda48af95c1868e4016ebdc/cart/${id}`)
       fetchHandler();
+    }
   };
 
-  
+
   const clearCartItem = (id) => {
     if (items.length <= 0) {
       alert("There is no items to purchase!!!")
     } else {
       alert("Thanks for purchaseing the item !!!")
+
+      const l=items.length >0
+
+      l && id.forEach((item)=>{
+        axios.delete(`https://crudcrud.com/api/2dce1209ceda48af95c1868e4016ebdc/cart/${item._id}`)
+      })
       setItems([...[]])
     }
 
