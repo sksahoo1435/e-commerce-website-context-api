@@ -36,6 +36,12 @@ const Data = (props) => {
 
     }
 
+    const checkLogin=()=>{
+        return(
+            alert("please login first..")
+        )
+    };
+
 
     return (
         <>
@@ -65,15 +71,17 @@ const Data = (props) => {
                                         </div>
                                         <div style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", alignItems: "center" }}>
                                             <p style={{ textAlign: "center" }}>{item.price}</p>
+                                            {localStorage.getItem('token')===null ?(<Button onClick={checkLogin}>ADD TO CART</Button>):
                                             <Button onClick={() => {
                                                 cartCtx.addItem({
+                                                    _id:item._id,
                                                     id: item.id,
                                                     header: item.header,
                                                     image: item.img,
                                                     price: item.price,
                                                     quantity: 1,
                                                 })
-                                            }}>ADD TO CART</Button>
+                                            }}>ADD TO CART</Button>}
                                         </div>
                                     </div>
                                 )

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import CartContext from '../Context/Cart-Context';
 import { Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -9,7 +10,7 @@ import { Card } from 'react-bootstrap';
 const Cart = (props) => {
 
     const cartCtx = useContext(CartContext);
-
+    const navigate=useNavigate();
     // console.log("the arrays are", cartCtx.cartData)
     const cartItem = cartCtx.cartData && cartCtx.cartData.length > 0
 
@@ -41,7 +42,7 @@ const Cart = (props) => {
                 </div>
                 {/* cart element which are inside cart */}
                 {
-                    cartItem && (cartCtx.cartData.map((item) =>
+                    (localStorage.getItem('token')!==null) ?(cartItem && (cartCtx.cartData.map((item) =>
                         <div style={{ height: 60, width: 100, display: "flex", paddingBottom: 20, paddingTop: 10, marginBottom: 20 }}>
                             <div>{<img src={item.image} alt={item.name} style={{ height: 60, width: 100, display: "flex" }} />}
                             </div>
@@ -50,16 +51,19 @@ const Cart = (props) => {
                             <div style={{ paddingLeft: 80 }}>
                                 <Card style={{ background: "aqua", borderRadius: 10, width: 20 }}>{item.quantity}</Card>
                             </div>
-                            <Button variant="danger" onClick={() => cartCtx.removeItem(item.id)}>REMOVE</Button>{' '}
+                            <Button variant="danger" onClick={() => cartCtx.removeItem(item._id)}>REMOVE</Button>{' '}
+                            {/* <Button style={{paddingLeft:5}} onClick={() => cartCtx.addItem(item._id)}>+</Button> */}
                         </div>
                         
                     )
-                    )
+                    )):navigate('/login')
                 }
 
                 <div style={{ width: "100%", paddingLeft: "60%", fontSize: "1.2rem", display: "flex", paddingTop: "20%" }}>
                     <span>
                         <strong>Total</strong>
+
+
                         <span>{totalAmount}</span>
                     </span>
                 </div>
