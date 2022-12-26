@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react";
+import {  useContext, useEffect, useState } from "react";
 import CartContext from "../Context/Cart-Context";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -8,23 +8,31 @@ const CartProvider = (props) => {
   const [items, setItems] = useState([])
 
   const navigate = useNavigate();
+  const cartCtx = useContext(CartContext);
 
   const initialToken = localStorage.getItem('token');
   const [token, setToken] = useState(initialToken);
+  const [email,setEmail] =useState('');
 
   const userIsLoggedIn = !!token;
 
-  const url = 'https://crudcrud.com/api/2dce1209ceda48af95c1868e4016ebdc/cart';
+  const EmailToUse= cartCtx.Email.replace(/\W/g, '')
+  console.log(EmailToUse)
+  const url = `https://crudcrud.com/api/4200cde70b014a798f6579b59de7f345/cart${EmailToUse}`;
 
-  const fetchHandler = async () => {
+  const fetchHandler = async () => {    
     const response = await axios.get(url)
     setItems(response.data)
 
   }
 
-  const loginHandler = (token) => {
+  const loginHandler = (token,email) => {
     setToken(token);
+    setEmail(email);
+    
   }
+
+  
 
   const logoutHandler = () => {
     setToken(null);
@@ -51,7 +59,7 @@ const CartProvider = (props) => {
           price: product.price,
           quantity: x
         }
-        axios.put(`https://crudcrud.com/api/2dce1209ceda48af95c1868e4016ebdc/cart/${items[index]._id}`, objItem)
+        axios.put(`${url}/${items[index]._id}`, objItem)
           .then((res) => {
             console.log(res.data)
             fetchHandler();
@@ -81,14 +89,14 @@ const CartProvider = (props) => {
         price: item.price,
         quantity: x
       }
-      axios.put(`https://crudcrud.com/api/2dce1209ceda48af95c1868e4016ebdc/cart/${id}`, objItem)
+      axios.put(`${url}/${id}`, objItem)
         .then((res) => {
           console.log(res.data)
           fetchHandler();
         })
 
     } else {
-      await axios.delete(`https://crudcrud.com/api/2dce1209ceda48af95c1868e4016ebdc/cart/${id}`)
+      await axios.delete(`${url}/${id}`)
       fetchHandler();
     }
   };
@@ -103,7 +111,7 @@ const CartProvider = (props) => {
       const l=items.length >0
 
       l && id.forEach((item)=>{
-        axios.delete(`https://crudcrud.com/api/2dce1209ceda48af95c1868e4016ebdc/cart/${item._id}`)
+        axios.delete(`${url}/${item._id}`)
       })
       setItems([...[]])
     }
@@ -124,7 +132,7 @@ const CartProvider = (props) => {
     addItem: addItemToCartHandler,
     removeItem: removeItemToCartHandler,
     clearCart: clearCartItem,
-
+    Email:email,
 
     token: token,
     isLoggedIn: userIsLoggedIn,

@@ -42,7 +42,7 @@ function LogIn() {
                     console.log('Login Successful')
                     res.json().then((jwt) => {
 
-                        logCtx.login(jwt.idToken)
+                        logCtx.login(jwt.idToken,jwt.email)
                         // console.log("after login",jwt)
                         localStorage.setItem('token', jwt.idToken);
                         // logCtx.isLoggedIn=true
