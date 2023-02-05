@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Navbars from './Navbars';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import classes from './details.module.css';
+import CartContext from '../Context/Cart-Context';
 
 function Details(props) {
 
@@ -10,9 +11,13 @@ function Details(props) {
 
     const { header, img,price } = location.state || {}
 
+    const cartCtx = useContext(CartContext);
+    const navigate= useNavigate();
 
-
-    
+    const BuyNow=()=>{
+        alert("Thanks for Purchasing...")
+        navigate('/')
+    }
 
 
     return (
@@ -30,8 +35,15 @@ function Details(props) {
                         <img src={img} alt="img" style={{ height: "15%", width: "15%", margin: "1%", transform: "rotate(180deg)" }} />
                     </div>
                     <div style={{ marginBottom: 0 }}>
-                        <Button style={{ margin: "1%" }}> ADD TO CART</Button>
-                        <Button style={{ margin: "1%" }}>BUY NOW</Button>
+                        <Button style={{ margin: "1%" }} onClick={() => {
+                                                cartCtx.addItem({
+                                                    header:header,
+                                                    image: img,
+                                                    price: price,
+                                                    quantity: 1,
+                                                })
+                                            }}> ADD TO CART</Button>
+                        <Button style={{ margin: "1%" }} onClick={()=>{BuyNow()}}>BUY NOW</Button>
                     </div>
                 </div>
                 <div style={{paddingLeft: "40%",width: "80%"}}>

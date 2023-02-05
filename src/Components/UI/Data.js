@@ -24,7 +24,7 @@ const Data = (props) => {
 
     const [fullDetails, setToFullDetails] = useState([]);
 
-    console.log(fullDetails)
+    console.log("full details was ",fullDetails)
 
     const cartCtx = useContext(CartContext);
 
@@ -74,7 +74,7 @@ const Data = (props) => {
                                             {localStorage.getItem('token')===null ?(<Button onClick={checkLogin}>ADD TO CART</Button>):
                                             <Button onClick={() => {
                                                 cartCtx.addItem({
-                                                    _id:item._id,
+                                                    
                                                     id: item.id,
                                                     header: item.header,
                                                     image: item.img,

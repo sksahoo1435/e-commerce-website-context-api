@@ -27,7 +27,7 @@ function LogIn() {
         console.log(enteredEmail, enteredPassword)
 
         // if (isLogin) {
-            fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD7zBQf0px6OU6KOmQsl6htUKcMzlm5EWk', {
+            fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyChP-3V6qe0Oi82DR8fbFNDvUCK8HFAF38', {
                 method: 'POST',
                 body: JSON.stringify({
                     email: enteredEmail,
